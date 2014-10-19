@@ -54,39 +54,15 @@ for i in range(0,len(data)):
     w=data[i][6]*np.cos(np.radians(data[i][5]))*zdir
 
     #Assignment of colours according to magnitude, according to cubic steps discussed above
-    if data[i][6] >= 0.59 and data[i][6] < 0.7 : 
-     tone=colors[ 0 ]
-    elif data[i][6] >= 0.5 and data[i][6] < 0.59 : 
-     tone=colors[ 1 ]
-    elif data[i][6] >= 0.42 and data[i][6] < 0.5 : 
-     tone=colors[ 2 ]
-    elif data[i][6] >= 0.34 and data[i][6] < 0.42 : 
-     tone=colors[ 3 ]
-    elif data[i][6] >= 0.28 and data[i][6] < 0.34 : 
-     tone=colors[ 4 ]
-    elif data[i][6] >= 0.23 and data[i][6] < 0.28 : 
-     tone=colors[ 5 ]
-    elif data[i][6] >= 0.18 and data[i][6] < 0.23 : 
-     tone=colors[ 6 ]
-    elif data[i][6] >= 0.15 and data[i][6] < 0.18 : 
-     tone=colors[ 7 ]
-    elif data[i][6] >= 0.11 and data[i][6] < 0.15 : 
-     tone=colors[ 8 ]
-    elif data[i][6] >= 0.09 and data[i][6] < 0.11 : 
-     tone=colors[ 9 ]
-    elif data[i][6] >= 0.06 and data[i][6] < 0.09 : 
-     tone=colors[ 10 ]
-    elif data[i][6] >= 0.04 and data[i][6] < 0.06 : 
-     tone=colors[ 11 ]
-    elif data[i][6] >= 0.03 and data[i][6] < 0.04 : 
-     tone=colors[ 12 ]
-    elif data[i][6] >= 0.01 and data[i][6] < 0.03 : 
-     tone=colors[ 13 ]
-    elif data[i][6] >= 0 and data[i][6] < 0.01 : 
-     tone=colors[ 14 ]
-    else:
-        #Outliers plotted in Blue100% for defference
-        tone='#0000FF'
+    if data[i][6] > 0.7 or data[i][6] < 0 :
+        #Plotting outliers as blue
+        tone = '#0000FF'
+    else :
+        for x in range(0, 14):
+            #Ideally there should be a function which calculates a range based on the limits and number of bins
+            if data[i][6] < (0.0032*x^2) + (0.0025*x) +0.01 :
+                tone = colors[14 - x]
+                break
     
     #Actual plotting of coloured arrows
     ax.quiver(data[i][0], data[i][1], data[i][2], u, v, w, length=0.1, color=tone)
